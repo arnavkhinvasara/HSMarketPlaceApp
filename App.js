@@ -1,21 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler'
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+
+import firebase from 'firebase'
+import firebaseConfig from './keys/firebaseConfig'
+
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig)
+}
+
+import Loading from './screens/Loading'
+import Register from './screens/Register'
+import Login from './screens/Login'
+import Buy from './screens/Buy'
+import Sell from './screens/Sell'
+import Meetings from './screens/Meetings'
+
+const Stack = createStackNavigator()
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name='Loading' component={Loading}/>
+        <Stack.Screen name='Register' component={Register}/>
+        <Stack.Screen name='Login' component={Login}/>
+        <Stack.Screen name='Buy' component={Buy}/>
+        <Stack.Screen name='Sell' component={Sell}/>
+        <Stack.Screen name='Meetings' component={Meetings}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
